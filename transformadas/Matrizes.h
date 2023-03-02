@@ -5,11 +5,12 @@
 #ifndef TRANSFORMADAS_MATRIZES_H
 #define TRANSFORMADAS_MATRIZES_H
 
-constexpr int colResult{ 1 };
-constexpr int col1{ 3 };
+#include <array>
 
 namespace Matriz {
-    void multiplica(double m1[][col1], double m2[], double res[][colResult]);
+    using Mat3_1 = std::array<double, 3>;
+    using Mat3_3 = std::array<std::array<double, 3>, 3>;
+    Mat3_1 multiplica(const Mat3_3,  const Mat3_1);
 }
 
 #endif // TRANSFORMADAS_MATRIZES_H

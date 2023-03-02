@@ -6,6 +6,8 @@
 #define TRANSFORMADAS_OBJETO_H
 
 #include <vector>
+#include <array>
+#include "Matrizes.h"
 
 /**
  * Esse é um ponto 2D representado em coordenadas homogêneas.
@@ -15,26 +17,30 @@ struct Ponto {
     Ponto(double x, double y);
     double x();
     double y();
+    const Matriz::Mat3_1 getCoords();
     void setX(double x);
     void setY(double y);
 
     private:
-        double coords[3];
+        Matriz::Mat3_1 coords;
 };
 
 class Objeto {
 
     public:
-        std::vector<Ponto> pontos;
-
         Objeto(std::vector<Ponto> pontos = {});
-        void inserirPonto(Ponto ponto);
 
-        void transalacao();
-        void escala();
-        void rotacao();
-        void cisalhamento();
-        void reflexao();
+        void inserirPonto(Ponto ponto);
+        Ponto getPonto(int i);
+
+        Objeto transalacao(double tx, double ty);
+        Objeto escala();
+        Objeto rotacao();
+        Objeto cisalhamento();
+        Objeto reflexao();
+
+    private:
+        std::vector<Ponto> pontos;
 
 };
 
