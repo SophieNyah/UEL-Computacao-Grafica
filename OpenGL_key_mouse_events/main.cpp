@@ -3,19 +3,12 @@
 //
 
 #include <GL/glut.h>
-#include <optional>
 #include "figures.h"
+#include "keyboard_mouse_handler.h"
+#include "menus.h"
 
 void myInit(void);
 void myDisplay(void);
-void handle_KeyboardFunc(GLubyte key, GLint x, GLint y);
-void handle_MouseFunc(GLint button, GLint action, GLint x, GLint y);
-void handle_PassiveMotion(GLint x, GLint y);
-void handle_motion(GLint x, GLint y);
-void create_menu();
-void handle_menu(GLint op);
-void handle_submenu1(GLint op);
-void handle_submenu2(GLint op);
 
 int main(int argc, char* argv[]) {
     glutInit(&argc, argv); // Inicializa o GLUT e processa qualquer parâmetro passado pela linha de comandos. Deve ser chamada antes de qualquer outra rotina GLUT.
@@ -67,83 +60,4 @@ void myDisplay(void) {
 //    );
 
     glFlush(); // Garante a execução de todas as rotinas de desenho
-}
-
-void handle_KeyboardFunc(GLubyte key, GLint x, GLint y) {
-    GLint m = glutGetModifiers();
-
-    switch (key) {
-        case 27:
-            exit(0);
-            break;
-        case 'D':
-            limpa_tela();
-            glFlush();
-            break;
-    }
-}
-
-void handle_MouseFunc(GLint button, GLint action, GLint x, GLint y) {
-//    if(button == GLUT_LEFT_BUTTON && action == GLUT_DOWN) {
-//        draw_point(x, y);
-//        glFlush();
-//    }
-}
-
-void handle_PassiveMotion(GLint x, GLint y) {
-
-}
-
-void handle_motion(GLint x, GLint y) {
-    draw_point(x, y);
-    glFlush();
-}
-
-void create_menu() {
-    GLint menu, submenu1, submenu2;
-
-    submenu1 = glutCreateMenu(handle_submenu1);
-    glutAddMenuEntry("Preto",0);
-    glutAddMenuEntry("Laranja",1);
-    glutAddMenuEntry("Azul",2);
-
-    submenu2 = glutCreateMenu(handle_submenu2);
-    glutAddMenuEntry("Pequeno",0);
-    glutAddMenuEntry("Medio",1);
-    glutAddMenuEntry("Grande",2);
-
-    menu = glutCreateMenu(handle_menu);
-    glutAddSubMenu("Cor", submenu1);
-    glutAddSubMenu("Espessura", submenu2);
-    glutAttachMenu(GLUT_RIGHT_BUTTON);
-}
-
-void handle_menu(GLint op) {}
-
-void handle_submenu1(GLint op) {
-    switch (op) {
-        case 0:
-            set_color(DefColor::black);
-            break;
-        case 1:
-            set_color(DefColor::orange);
-            break;
-        case 2:
-            set_color(DefColor::blue);
-            break;
-    }
-}
-
-void handle_submenu2(GLint op) {
-    switch (op) {
-        case 0:
-            set_thickness(1.0);
-            break;
-        case 1:
-            set_thickness(4.0);
-            break;
-        case 2:
-            set_thickness(12.0);
-            break;
-    }
 }
